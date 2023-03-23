@@ -1,8 +1,7 @@
-const { databaseConnect } = require("../0.databaseConnect");
-
+const { databaseConnect } = require("./0.databaseConnect");
 
 const insertData = async () => {
-    var coll = await databaseConnect("embeddedDocumentsCollection");
+    var db = await databaseConnect("embeddedDocumentsCollection");
     var data = [
         {
             name: "govind",
@@ -30,7 +29,8 @@ const insertData = async () => {
         }
     ]
 
-    var inserted = await coll.insertMany(data);
+    var inserted = await db.collection.insertMany(data);
+    await db.client.close();
     return inserted;
     // console.log(inserted);
     /*
@@ -48,30 +48,30 @@ const insertData = async () => {
 // })
 
 const embeddedDocxQuery = async () => {
-    var coll = await databaseConnect("embeddedDocumentsCollection");
-    var dataFound1 = await coll.find({"companies.comp":"JSW"}).toArray();
+    var db = await databaseConnect("embeddedDocumentsCollection");
+    var dataFound1 = await db.collection.find({ "companies.comp": "JSW" }).toArray();
     /*
     [
         { comp: 'JSW', salary: 45000, experience: 2 },
         { comp: 'Enmovil', salary: 30000, experience: 1 }
     ]
     */
-    var dataFound2 = await coll.find({"companies.comp":"JSW","companies.salary":{$gte:45000}}).toArray();
+    var dataFound2 = await db.collection.find({ "companies.comp": "JSW", "companies.salary": { $gte: 45000 } }).toArray();
     /*
     [
         { comp: 'JSW', salary: 45000, experience: 2 },
         { comp: 'Enmovil', salary: 30000, experience: 1 }
     ]
     */
+    await db.client.close();
     return {
         dataFound1,
         dataFound2
     }
 }
 
-embeddedDocxQuery().then((resp)=>{
+embeddedDocxQuery().then((resp) => {
     console.log(resp);
-
 })
 
 

@@ -8,5 +8,7 @@ exports.databaseConnect = async (collectionName) => {
     console.log("Database is connected");
     const db = client.db("dbProject");
     const collection = db.collection(collectionName);
-    return collection;
+    return {
+        collection, client
+    };
 }

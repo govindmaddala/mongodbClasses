@@ -2,14 +2,14 @@ const { databaseConnect } = require("./0.databaseConnect");
 const { ObjectId } = require('mongodb');
 
 const insertData = async () => {
-    var coll = await databaseConnect("mainCollection");
+    var db = await databaseConnect("mainCollection");
     var insertData = {
         name: "govind",
         city: "Anakapalle"
     }
-    var insertedData = await coll.insertOne(insertData)
+    var insertedData = await db.collection.insertOne(insertData)
 
-    var coll2 = await databaseConnect("refCollection");
+    var db2 = await databaseConnect("refCollection");
     var query2 = {
         jobDetails: {
             job: [
@@ -20,14 +20,14 @@ const insertData = async () => {
     }
     console.log(insertedData.insertedId);
     query2.ref = insertedData.insertedId;
-    coll2.insertOne(query2)
+    db2.collection.insertOne(query2)
 }
 
 // insertData() 
 
 const lookUp = async () => {
     // var mainColl = await databaseConnect("mainCollection");
-    var refColl = await databaseConnect("refCollection");
+    var db = await databaseConnect("refCollection");
     var query = {
         $lookup: {
             from: "mainCollection",
@@ -37,7 +37,7 @@ const lookUp = async () => {
         }
     }
 
-    var userData = await refColl.aggregate([
+    var userData = await db.collection.aggregate([
         query
     ]).toArray();
     console.log(userData);
