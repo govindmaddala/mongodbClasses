@@ -1,4 +1,4 @@
-const { databaseConnect } = require("./0.databaseConnect");
+const { databaseConnect } = require("./0.DatabaseConnection/0.databaseConnect");
 const { ObjectId } = require('mongodb');
 
 const insertData = async () => {
