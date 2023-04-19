@@ -45,7 +45,7 @@ const findMathsAnd100Marks_NormalWay = async () => {
         [ { subject: 'Maths', score: 100 }, { subject: 'Science', score: 95 } ]
         [ { subject: 'Maths', score: 95 }, { subject: 'Science', score: 100 } ]
     */
-    await db.client.close();
+    // *  await db.client.close();
 }
 // findMathsAnd100Marks_NormalWay();
 const findMathsWith100Marks_$elemMatch = async () => {
