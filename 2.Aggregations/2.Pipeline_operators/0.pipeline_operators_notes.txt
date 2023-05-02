@@ -1,0 +1,11 @@
+Expression Operators:
+1) These expression operators are available to construct expressions for use in the aggregation pipeline stages.
+2) similar to functions that take arguments 
+    --> in the form of array and have the following form:
+        --> { <operator>: [ <argument1>, <argument2> ... ] }
+    --> If operator accepts a single argument, you can omit the outer array designating the argument list:
+        --> { <operator>: <argument> }
+    --> To avoid parsing ambiguity if the argument is a literal array, you must wrap the literal array in a $literal expression or 4
+        keep the outer array that designates the argument list.
+        --> $literal: Returns a value without parsing. Use for values that the aggregation pipeline may interpret as an expression.
+                    : syntax: { $literal: <value> }
